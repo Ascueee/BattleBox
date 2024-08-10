@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Oger
+  - BueOrder
+  - YellowOrder
+  - Ragdoll
   layers:
   - Default
   - TransparentFX
