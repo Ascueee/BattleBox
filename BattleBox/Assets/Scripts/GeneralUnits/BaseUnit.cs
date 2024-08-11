@@ -119,16 +119,20 @@ public class BaseUnit : MonoBehaviour
     {
         RotateToTarget();
         //gets direction to target
-        var directionToTarget = target.transform.position - transform.position;
-        directionToTarget = directionToTarget.normalized;//normalizes it
+        if (target != null)
+        {
+            var directionToTarget = target.transform.position - transform.position;
+            directionToTarget = directionToTarget.normalized;//normalizes it
 
-        //checks if velocity is over maxSpeed
-        if(Mathf.Abs(rb.velocity.magnitude) >= unitMaxSpeed)
-            return;
- 
 
-        //adds force in direction to move unit
-        rb.AddForce(directionToTarget * unitSpeed, ForceMode.Force);
+            //checks if velocity is over maxSpeed
+            if (Mathf.Abs(rb.velocity.magnitude) >= unitMaxSpeed)
+                return;
+
+
+            //adds force in direction to move unit
+            rb.AddForce(directionToTarget * unitSpeed, ForceMode.Force);
+        }
     }
 
 
@@ -168,7 +172,7 @@ public class BaseUnit : MonoBehaviour
         //itterates through each target 
         for (int i = 0; i < targets.Length; i++)
         {
-
+            //for the first itteration set the target to first deployed
             if (i == 0)
                 target = targets[i];
 
@@ -187,13 +191,10 @@ public class BaseUnit : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ragdoll")
         {
-            print("hit ragdoll");
             if (collision.gameObject.GetComponent<Rigidbody>() != null)
-                collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 300f, ForceMode.Force);
         }
-
     }
-
 
     //GETTER METHODS
     public string GetUnitName()
