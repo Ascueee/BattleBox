@@ -504,6 +504,7 @@ MonoBehaviour:
   unitAnimNames:
   - inCharge
   - inAttack
+  unitDamageType: Punch
   target: {fileID: 0}
   currentAtkObj: {fileID: 0}
   unitAnim: {fileID: 7060907366739905113}

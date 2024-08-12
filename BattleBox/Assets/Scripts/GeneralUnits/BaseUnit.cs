@@ -16,8 +16,10 @@ public class BaseUnit : MonoBehaviour
     [SerializeField] float unitDmgRange;
     [SerializeField] float unitCD;
     [SerializeField] string[] unitAnimNames;
+    [SerializeField] string unitDamageType;//tells if unit does slash dmg, explosive dmg, projectile dmg
     [SerializeField] GameObject target;
     [SerializeField] GameObject currentAtkObj;
+
 
     [Header("Unit Componenets")]
     [SerializeField] Animator unitAnim;
@@ -26,9 +28,9 @@ public class BaseUnit : MonoBehaviour
     [SerializeField] GameObject weapon;
     [SerializeField] Transform deathSpawn;
 
-
     public Rigidbody rb;
     Vector3 distanceFromTarget;
+    string damageTaken;
 
     bool hasTarget;
     bool inCharge;
@@ -108,6 +110,10 @@ public class BaseUnit : MonoBehaviour
             canDie = false;
             Destroy(unityBody);
             var deadBody = Instantiate(ragDollBody, deathSpawn.position, Quaternion.identity);
+            if(damageTaken == "Slash")
+            {
+                deadBody.GetComponent<Gore>().SetDmgType(damageTaken);
+            }
             Destroy(gameObject);
         }
     }
@@ -143,6 +149,7 @@ public class BaseUnit : MonoBehaviour
         if(canAttack == true)
         {
             target.GetComponentInParent<BaseUnit>().SetUnitHealth(unitDmg);
+            target.GetComponentInParent<BaseUnit>().SetTypeOfDmg(unitDamageType);
             canAttack = false;
             Invoke("ResetAttack", unitCD);
             
@@ -222,11 +229,15 @@ public class BaseUnit : MonoBehaviour
         return unitDmg;
     }
 
-
     //SETTER METHODS
 
     public void SetUnitHealth(float dmgTaken)
     {
         unitHealth -= dmgTaken;
+    }
+
+    public void SetTypeOfDmg(string typeOfDmg)
+    {
+        damageTaken = typeOfDmg;
     }
 }

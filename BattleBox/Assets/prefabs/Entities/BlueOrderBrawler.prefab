@@ -543,11 +543,12 @@ MonoBehaviour:
   unitSpeed: 12
   unitMaxSpeed: 3
   unitDmg: 3
-  unitDmgRange: 2
+  unitDmgRange: 1.5
   unitCD: 3
   unitAnimNames:
   - inCharge
   - inAttack
+  unitDamageType: Punch
   target: {fileID: 0}
   currentAtkObj: {fileID: 0}
   unitAnim: {fileID: 1234582357272996714}

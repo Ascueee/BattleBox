@@ -9,9 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image blueOrderBackground;
     [SerializeField] Image brawlerIcon;
     [SerializeField] Image knightIcon;
-    [SerializeField] Image yellowOrderBackground;
     [SerializeField] TextMeshProUGUI blueOrderMenuText;
-    [SerializeField] TextMeshProUGUI yellowOrderMenuText;
     [SerializeField] float lerpTime;
     [SerializeField] float backgroundAlpha;
 
@@ -29,11 +27,7 @@ public class UIManager : MonoBehaviour
     bool exitBlueMenu;
     bool blueSelect;
 
-    bool inYellowMenu;
-    bool exitYellowMenu;
-    bool yellowSelect;
     float blueState = 0;
-    float yellowState = 0;
 
 
     
@@ -43,20 +37,13 @@ public class UIManager : MonoBehaviour
         PlayerInput();
         UnitSelectInput();
 
-        if(inYellowMenu == false)
-        {
-            TurnOnOffBlueOrderMenu();
-        }
+        TurnOnOffBlueOrderMenu();
 
-        else if(inBlueMenu == false)
-        {
-            TurnOnOffYellowMenu();
-        }
     }
 
     private void PlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.B) && inYellowMenu == false)
+        if (Input.GetKeyDown(KeyCode.B) )
         {
             if(blueState == 0)
             {
@@ -69,22 +56,6 @@ public class UIManager : MonoBehaviour
                 exitBlueMenu = true;
                 blueSelect = false;
                 blueState = 0;
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.N) && inBlueMenu == false)
-        {
-            if(yellowState == 0)
-            {
-                inYellowMenu = true;
-                yellowSelect = true;
-                yellowState++;
-            }
-            else
-            {
-                exitYellowMenu = true;
-                yellowSelect = false;
-                yellowState = 0;
             }
         }
     }
@@ -101,21 +72,6 @@ public class UIManager : MonoBehaviour
         if(exitBlueMenu == true)
         {
             BlueMenuOff();
-        }
-    }
-
-    void TurnOnOffYellowMenu()
-    {
-        LeanTween.init();
-
-        if(inYellowMenu == true)
-        {
-            YellowMenuOn();
-        }
-
-        if(exitYellowMenu == true)
-        {
-            YellowMenuOff();
         }
     }
 
@@ -158,42 +114,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    void YellowMenuOn()
-    {
-        LeanTween.value(yellowOrderBackground.gameObject, yellowOrderBackground.color.a, backgroundAlpha, lerpTime).setOnUpdate(ChangeYellowBackground);
-    }
 
-    void YellowMenuOff()
-    {
-        LeanTween.value(yellowOrderBackground.gameObject, yellowOrderBackground.color.a, 0f, lerpTime).setOnUpdate(ChangeYellowBackground);
-    }
-
-    void ChangeYellowBackground(float a)
-    {
-        var alphaChange = new Vector4(yellowOrderBackground.color.r, yellowOrderBackground.color.g, yellowOrderBackground.color.b, a);
-        yellowOrderBackground.color = alphaChange;
-
-        if (inYellowMenu == true)
-        {
-            if (yellowOrderBackground.color.a == backgroundAlpha)
-            {
-                brawlerIcon.gameObject.SetActive(true);
-                knightIcon.gameObject.SetActive(true);
-                yellowOrderMenuText.gameObject.SetActive(true);
-                inYellowMenu = false;
-            }
-        }
-        else if(exitYellowMenu == true)
-        {
-            if (yellowOrderBackground.color.a == 0f)
-            {
-                brawlerIcon.gameObject.SetActive(false);
-                knightIcon.gameObject.SetActive(false);
-                yellowOrderMenuText.gameObject.SetActive(false);
-                exitYellowMenu = false;
-            }
-        }
-    }
     void SetCursorEntity(GameObject entity)
     {
         if (cursor != null)
@@ -207,10 +128,6 @@ public class UIManager : MonoBehaviour
             {
                 SetCursorEntity(blueBrawler);
             }
-            else if(yellowSelect == true)
-            {
-                SetCursorEntity(yellowBrawler);
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -219,10 +136,7 @@ public class UIManager : MonoBehaviour
             {
                 SetCursorEntity(blueKnight);
             }
-            else if (yellowSelect == true)
-            {
-                SetCursorEntity(yellowKnight);
-            }
+
         }
             
     }

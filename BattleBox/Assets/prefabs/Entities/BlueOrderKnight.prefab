@@ -1314,11 +1314,12 @@ MonoBehaviour:
   unitSpeed: 12
   unitMaxSpeed: 3
   unitDmg: 7
-  unitDmgRange: 3
+  unitDmgRange: 2
   unitCD: 3
   unitAnimNames:
   - inCharge
   - inAttack
+  unitDamageType: Slash
   target: {fileID: 0}
   currentAtkObj: {fileID: 0}
   unitAnim: {fileID: 601172768700460506}

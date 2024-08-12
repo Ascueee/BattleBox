@@ -73,6 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5028936720495628056}
   - component: {fileID: 5028936720495628059}
+  - component: {fileID: 4800412078325962177}
   m_Layer: 0
   m_Name: BlueOrderRagDoll
   m_TagString: Ragdoll
@@ -118,6 +119,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4800412078325962177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5028936720495628058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c709628f2fc9ce45984476557421473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: {x: 0, y: 0, z: 0}
+  fleshWoundObj: {fileID: 5600135264299060348, guid: bfafcd91de61c214d9bf8c537c4e1b23,
+    type: 3}
+  bloodParticleEffect: {fileID: 8761213899739645181, guid: 8b1c070851721da4f9f37fdc91a65cb1,
+    type: 3}
+  unitHead: {fileID: 5028936721924174929}
+  unitRightArm: {fileID: 5028936720690803343}
+  unitLeftArm: {fileID: 5028936722156668368}
+  unitRightLeg: {fileID: 5028936721342216329}
+  unitLeftLeg: {fileID: 5028936721984867851}
+  unitHeadObj: {fileID: 1301564128958751671, guid: 21233fed6cb8688478ab3e4044afe157,
+    type: 3}
+  unitArmObj: {fileID: 240725847790726564, guid: 7c07ad39aaa04ea4da8f818b240048fd,
+    type: 3}
+  unitLeg: {fileID: 7627308180586105871, guid: 13f1b4c9cf5ac864e9ee070a9a068c54, type: 3}
 --- !u!1 &5028936720572805988
 GameObject:
   m_ObjectHideFlags: 0
