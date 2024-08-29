@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image blueOrderBackground;
     [SerializeField] Image brawlerIcon;
     [SerializeField] Image knightIcon;
-    [SerializeField] TextMeshProUGUI blueOrderMenuText;
+    [SerializeField] TextMeshProUGUI menuText;
+    [SerializeField] private TextMeshProUGUI modeText;
+    [SerializeField] private TextMeshProUGUI controlsText;
     [SerializeField] float lerpTime;
     [SerializeField] float backgroundAlpha;
 
@@ -21,20 +24,29 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject yellowBrawler;
     [SerializeField] GameObject yellowKnight;
 
-    [Header("UIManager Componenets")]
-    [SerializeField] Cursor cursor;
+    [Header("UIManager Componenets")] [SerializeField]
+    private Cursor cursor;
     bool inBlueMenu;
     bool exitBlueMenu;
     bool blueSelect;
+    bool yellowSelect;
+    private bool inEarase;
 
     float blueState = 0;
+    float teamSelectState = 0;
 
+    private void Start()
+    {
+        controlsText.text =
+            "Reset: C  | Erase: E | Switch Troop Team: L | Open Buy Menu: B | Troop Select: 1-2 | Toggle Cursor: P |Start Battle: Tab";
 
-    
+    }
+
     // Update is called once per frame
     void Update()
     {
         PlayerInput();
+        ModeText();
         UnitSelectInput();
 
         TurnOnOffBlueOrderMenu();
@@ -75,6 +87,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    void ModeText()
+    {
+        if (inEarase != true)
+        {
+            if (blueSelect == true)
+                modeText.text = "Mode: Blue Place";
+            else if (yellowSelect == true)
+                modeText.text = "Mode: Yellow Place";
+            else
+                modeText.text = "Mode: No mode selected";
+        }
+        else
+        {
+            modeText.text = "Mode: Erase";
+        }
+
+    }
+
 
     void BlueMenuOn()
     {
@@ -97,7 +127,7 @@ public class UIManager : MonoBehaviour
             {
                 brawlerIcon.gameObject.SetActive(true);
                 knightIcon.gameObject.SetActive(true);
-                blueOrderMenuText.gameObject.SetActive(true);
+                menuText.gameObject.SetActive(true);
                 inBlueMenu = false;
             }
         }
@@ -107,7 +137,7 @@ public class UIManager : MonoBehaviour
             {
                 brawlerIcon.gameObject.SetActive(false);
                 knightIcon.gameObject.SetActive(false);
-                blueOrderMenuText.gameObject.SetActive(false);
+                menuText.gameObject.SetActive(false);
                 exitBlueMenu = false;
             }
         }
@@ -122,11 +152,33 @@ public class UIManager : MonoBehaviour
     }
     void UnitSelectInput()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (teamSelectState == 0)
+            {
+                menuText.text = "Blue Order";
+                blueSelect = true;
+                yellowSelect = false;
+                teamSelectState++;
+            }
+            else
+            {
+                menuText.text = "Yellow Order";
+                blueSelect = false;
+                yellowSelect = true;
+                teamSelectState = 0;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(blueSelect == true)
             {
                 SetCursorEntity(blueBrawler);
+            }
+            else if(yellowSelect == true)
+            {
+                SetCursorEntity(yellowBrawler);
             }
         }
 
@@ -136,6 +188,10 @@ public class UIManager : MonoBehaviour
             {
                 SetCursorEntity(blueKnight);
             }
+            else if (yellowSelect == true)
+            {
+                SetCursorEntity(yellowKnight);
+            }
 
         }
             
@@ -144,5 +200,10 @@ public class UIManager : MonoBehaviour
     public void SetCursorObj(Cursor currentCursor)
     {
         cursor = currentCursor;
+    }
+
+    public void SetInErase(bool isInErase)
+    {
+        inEarase = isInErase;
     }
 }

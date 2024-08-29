@@ -43,61 +43,64 @@ public class Gore : MonoBehaviour
         //checks dmg type
         if(dmgType == "Slash")
         {
-            print("GORE HAPPENING AHHH");
             //checks if the ragdoll can instantiate the limb
             if(cutOffLimb == true)
             {
-                //randomly pick out a limb
-                int randLimbHit = Random.RandomRange(0, 5);
-                print("LimbGone is: " + randLimbHit);
-                //instantiate gore effects onto ragdoll
-                if (randLimbHit == 0)
-                {
-                    unitHead.transform.localScale = scale;
-                    var fleshWound = Instantiate(fleshWoundObj, unitHead.transform.position, Quaternion.identity);
-                    var bloodVfx = Instantiate(bloodParticleEffect, unitHead.transform.position, Quaternion.identity);
-                    var headObj = Instantiate(unitHeadObj, unitHead.transform.position, Quaternion.identity);
-                    fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitHead.transform);
-                    bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitHead.transform);
-                }
-                else if (randLimbHit == 1)
-                {
-                    unitRightArm.transform.localScale = scale;
-                    var fleshWound = Instantiate(fleshWoundObj, unitRightArm.transform.position, Quaternion.identity);
-                    var bloodVfx = Instantiate(bloodParticleEffect, unitRightArm.transform.position, Quaternion.identity);
-                    var rightArmObj = Instantiate(unitArmObj, unitRightArm.transform.position, Quaternion.identity);
-                    fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightArm.transform);
-                    bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightArm.transform);
-                }
-                else if (randLimbHit == 2)
-                {
-                    unitLeftArm.transform.localScale = scale;
-                    var fleshWound = Instantiate(fleshWoundObj, unitLeftArm.transform.position, Quaternion.identity);
-                    var bloodVfx = Instantiate(bloodParticleEffect, unitLeftArm.transform.position, Quaternion.identity);
-                    var leftArmObj = Instantiate(unitArmObj, unitLeftArm.transform.position, Quaternion.identity);
-                    fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftArm);
-                    bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftArm);
-                }   
-                else if (randLimbHit == 3)
-                {
-                    unitRightLeg.transform.localScale = scale;
-                    var fleshWound = Instantiate(fleshWoundObj, unitRightLeg.transform.position, Quaternion.identity);
-                    var bloodVfx = Instantiate(bloodParticleEffect, unitRightLeg.transform.position, Quaternion.identity);
-                    var rightLegObj = Instantiate(unitLeg, unitRightLeg.transform.position, Quaternion.identity);
-                    fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightLeg);
-                    bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightLeg);
-                }
-                else
-                {
-                    unitLeftLeg.transform.localScale = scale;
-                    var fleshWound = Instantiate(fleshWoundObj, unitLeftLeg.transform.position, Quaternion.identity);
-                    var bloodVfx = Instantiate(bloodParticleEffect, unitLeftLeg.transform.position, Quaternion.identity);
-                    var leftLegObj = Instantiate(unitLeg, unitLeftLeg.transform.position, Quaternion.identity);
-                    fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftLeg);
-                    bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftLeg);
-                }
-                    
+                float canTriggerGore = Random.RandomRange(0, 3);
 
+                if(canTriggerGore == 0)
+                {
+                    //randomly pick out a limb
+                    int randLimbHit = Random.RandomRange(0, 5);
+
+                    //instantiate gore effects onto ragdoll
+                    if (randLimbHit == 0)
+                    {
+                        unitHead.transform.localScale = scale;
+                        var fleshWound = Instantiate(fleshWoundObj, unitHead.transform.position, Quaternion.identity);
+                        var bloodVfx = Instantiate(bloodParticleEffect, unitHead.transform.position, Quaternion.identity);
+                        var headObj = Instantiate(unitHeadObj, unitHead.transform.position, Quaternion.identity);
+                        fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitHead.transform);
+                        bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitHead.transform);
+                    }
+                    else if (randLimbHit == 1)
+                    {
+                        unitRightArm.transform.localScale = scale;
+                        var fleshWound = Instantiate(fleshWoundObj, unitRightArm.transform.position, Quaternion.identity);
+                        var bloodVfx = Instantiate(bloodParticleEffect, unitRightArm.transform.position, Quaternion.identity);
+                        var rightArmObj = Instantiate(unitArmObj, unitRightArm.transform.position, Quaternion.identity);
+                        fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightArm.transform);
+                        bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightArm.transform);
+                    }
+                    else if (randLimbHit == 2)
+                    {
+                        unitLeftArm.transform.localScale = scale;
+                        var fleshWound = Instantiate(fleshWoundObj, unitLeftArm.transform.position, Quaternion.identity);
+                        var bloodVfx = Instantiate(bloodParticleEffect, unitLeftArm.transform.position, Quaternion.identity);
+                        var leftArmObj = Instantiate(unitArmObj, unitLeftArm.transform.position, Quaternion.identity);
+                        fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftArm);
+                        bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftArm);
+                    }
+                    else if (randLimbHit == 3)
+                    {
+                        unitRightLeg.transform.localScale = scale;
+                        var fleshWound = Instantiate(fleshWoundObj, unitRightLeg.transform.position, Quaternion.identity);
+                        var bloodVfx = Instantiate(bloodParticleEffect, unitRightLeg.transform.position, Quaternion.identity);
+                        var rightLegObj = Instantiate(unitLeg, unitRightLeg.transform.position, Quaternion.identity);
+                        fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightLeg);
+                        bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitRightLeg);
+                    }
+                    else
+                    {
+                        unitLeftLeg.transform.localScale = scale;
+                        var fleshWound = Instantiate(fleshWoundObj, unitLeftLeg.transform.position, Quaternion.identity);
+                        var bloodVfx = Instantiate(bloodParticleEffect, unitLeftLeg.transform.position, Quaternion.identity);
+                        var leftLegObj = Instantiate(unitLeg, unitLeftLeg.transform.position, Quaternion.identity);
+                        fleshWound.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftLeg);
+                        bloodVfx.GetComponent<FleshWound>().SetFleshWoundLocation(unitLeftLeg);
+                    }
+                }
+   
                 cutOffLimb = false;
             }
         }

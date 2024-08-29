@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Cursor : MonoBehaviour
 {
-    [Header("Cursor Var")]
+    [Header("Cursor Var")] 
+    [SerializeField] private float deleteVFXSpeed;
+    [SerializeField] private Vector3 vfxOffSet;
     [SerializeField] LayerMask cursorHitLayer;
     [SerializeField] GameObject cursorObj;
     [SerializeField] GameObject spawnEntityObj;
     [SerializeField] UIManager uiManager;
+    [SerializeField] GameObject smokeVFX;
 
     GameObject cursor;
     Vector3 worldPosition;
@@ -17,7 +20,7 @@ public class Cursor : MonoBehaviour
     bool inCursor;
     bool inDelete;
     float cursorState;
-    float state;
+    int state;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +71,8 @@ public class Cursor : MonoBehaviour
             if(spawnEntityObj != null && cursorObj != null)
             {
                 var entity = Instantiate(spawnEntityObj, cursor.transform.position, Quaternion.identity);
+                var particleEffect = Instantiate(smokeVFX, cursor.transform.position, smokeVFX.transform.rotation);
+                Destroy(particleEffect, deleteVFXSpeed);
             }
 
         }
@@ -119,11 +124,13 @@ public class Cursor : MonoBehaviour
                 
                 inDelete = true;
                 cursorState++;
+                uiManager.SetInErase(true);
             }
             else
             {
                 inDelete = false;
                 cursorState = 0;
+                uiManager.SetInErase(false);
             }
 
         }
@@ -132,5 +139,10 @@ public class Cursor : MonoBehaviour
     public void SetEntitySpawner(GameObject entity)
     {
         spawnEntityObj = entity;
+    }
+
+    public int GetState()
+    {
+        return state;
     }
 }
